@@ -11,10 +11,10 @@ logger = logging.getLogger(__name__)
 def run_command(command):
     log_dir = "/opt/script_migration_sc/"
     os.makedirs(log_dir, exist_ok=True)
-    log_file_path = os.path.join(log_dir, "migration_sc_logfile.txt")
+    log_file_path = os.path.join(log_dir, "migration_sc_logfile.log")
     try:
         result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, encoding='utf-8')
-        with open("log_file_path", "a") as logfile:
+        with open(log_file_path, "a") as logfile:
             print(result.stdout, file=logfile)
             return result.stdout
     except subprocess.CalledProcessError as e:
@@ -111,7 +111,7 @@ def main():
             sys.exit(1)
         save_progress(15)
     
-    # Step 15: Start
+    # Step 15: Start Services
     if current_step is None or current_step < 16:
         try:
             commands = [
