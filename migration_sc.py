@@ -71,7 +71,7 @@ def main():
         logger.info(f"Resuming from step {current_step + 1}")
     else:
         logger.info("Starting from the beginning")
-
+        
     # Step 11: Create Pg_Dump
     if current_step is None or current_step < 11:
         try:
@@ -81,7 +81,7 @@ def main():
         except CommandExecutionFailed:
             logger.error("Failed to create Pg_Dump.")
             raise
-
+        
     # Step 12: Transfer Pg_Dump
     if current_step is None or current_step < 12:
         if not ask_user("Would you like to transfer the file? (yes/no)"):
@@ -96,7 +96,7 @@ def main():
         except CommandExecutionFailed:
             logger.error("Failed to transfer Pg_Dump.")
             raise
-
+        
     # Step 13: Stop services
     if current_step is None or current_step < 14:
         try:
@@ -106,7 +106,7 @@ def main():
             logger.error("Failed to stop services.")
             raise
         save_progress(14)
-
+        
     # Step 14: Transfer Catalina and Mongo files
     if current_step is None or current_step < 15:
         try:
@@ -119,7 +119,7 @@ def main():
             logger.error("Failed to transfer Catalina and Mongo files.")
             raise
         save_progress(15)
-
+        
     # Step 15: Start Services
     if current_step is None or current_step < 16:
         try:
@@ -129,7 +129,7 @@ def main():
             logger.error("Failed to start services.")
             raise
         save_progress(16)
-
+        
     # Final
     logger.info("Migration process completed successfully.")
 
