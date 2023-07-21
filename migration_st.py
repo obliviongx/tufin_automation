@@ -65,6 +65,7 @@ def manage_services(services, operation):
                 command = ["systemctl", "stop", service]
         run_command(command)
 
+# I don't think this is going to work, did't have the time to even test this function in Lab 
 def create_backup_file():
     logger.info("Creating Backup File")
     output = run_command(["screen", "-dmS", "finalTransfer"])
@@ -90,7 +91,7 @@ def main():
             raise
         save_progress(1)
     
-    # Step 2: Check license count
+    # Step 2: Check license 
     if current_step is None or current_step < 2:
         try:
             output = run_command(["psql", "securetrack", "-Upostgres", "-c", "select count(*) from st_licenses"])
@@ -112,7 +113,7 @@ def main():
             raise
         save_progress(3)
     
-    # Step 4: Check OS Version
+    # Step 4: Check OS 
     if current_step is None or current_step < 4:
         try:
             run_command(["cat", "/etc/redhat-release"])
@@ -187,7 +188,7 @@ def main():
             raise
         save_progress(9)
     
-    # Step 10: Run Rsync 2
+    # Step 10: Final Rsync
     if current_step is None or current_step < 10:
         try:
             run_command(["rsync", "-avzhe", "--progress", f"sshpass -p '{password}'", "ssh", "-o", "StrictHostKeyChecking=no", "/var/lib/pgsql/11/data/", f"{username}@{ip}:/opt/tufin/data/volumes/postgres/11/data/", "--rsync-path=sudo rsync"])
