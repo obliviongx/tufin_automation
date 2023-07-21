@@ -6,11 +6,11 @@ import logging
 import sys
 from datetime import datetime
 
-# Set the logging level to DEBUG to get all output
+# Set the logging level to DEBUG to get all output - very important :-)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Custom exception for command execution failure
+# Exception for command execution failure
 class CommandExecutionFailed(Exception):
     pass
 
