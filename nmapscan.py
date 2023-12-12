@@ -1,18 +1,11 @@
-################################
-### Python Script to Run Network Scans and append results to Wazuh Active Responses Log
-### Requirements:
-###     NMAP installed in Agent
-###     python-nmap (https://pypi.org/project/python-nmap/)
-### Replace the Array "subnets" with the subnets to scan from this agent.
-### Do NOT include subnets with a network firewall in the path of the agent and the subnet.
-################################
 import nmap
 import time
 import json
 nm = nmap.PortScanner()
 #Add subnets to scan to the Subnets Array
-subnets=['10.105.9.0/24']
+subnets=['192.168.252.0/24','192.168.1.0/24']
 for subnet in subnets:
+    nm.scan(subnet, arguments='-sV --script vulscan/vulscan.nse')
     json_output={}
     nm.scan(subnet)
     for host in nm.all_hosts():
